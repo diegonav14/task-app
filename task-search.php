@@ -1,18 +1,19 @@
 <?php
-    include('database.php');
+include('database.php');
 
+// Buscar tarea Query
 $search = $_POST['search'];
 
-if(!empty($search)){
+if (!empty($search)) {
     $query = "SELECT * FROM task WHERE name LIKE '$search%'";
     $result = mysqli_query($connection, $query);
 
-    if(!$result) {
+    if (!$result) {
         die('Query Error' . mysqli_error($connection));
     }
 
     $json = array();
-    while($row = mysqli_fetch_array($result)){
+    while ($row = mysqli_fetch_array($result)) {
         $json[] = array(
             'name' => $row['name'],
             'description' => $row['description'],
@@ -25,4 +26,4 @@ if(!empty($search)){
 }
 
 
-?> 
+?>

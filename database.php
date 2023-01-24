@@ -1,4 +1,6 @@
 <?php
+
+// Conexion database
 $connection = mysqli_connect(
     'localhost',
     'root',
@@ -6,7 +8,4 @@ $connection = mysqli_connect(
     'task-app'
 );
 
-    // if($connection){
-    //     echo "Database is connected";
-    // }
 ?>
