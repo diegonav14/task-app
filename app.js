@@ -1,17 +1,27 @@
-$(function(){
+$(function () {
+  console.log("Jquery esta funcionando");
+  $('#task-result').hide();
 
-    console.log('Jquery esta funcionando');
+  $("#search").keyup(function () {
+    if ($("#search").val()) {
+      let search = $("#search").val();
+      $.ajax({
+        url: "task-search.php",
+        type: "POST",
+        data: { search },
+        success: function (response) {
+          let tasks = JSON.parse(response);
+          let template = "";
+          tasks.forEach((task) => {
+            template += `<li>
+                       ${task.name}
+                       </li>`;
+          });
 
-    $('#search').keyup(function() {
-        let search = $('#search').val();
-         $.ajax({
-            url: 'task-search.php',
-            type: 'POST',
-            data: {search},
-            success: function(response){
-                console.log(response)
-            }
-         });
-    });
-
+          $("#container").html(template);
+          $('#task-result').show();
+        },
+      });
+    }
+  });
 });
