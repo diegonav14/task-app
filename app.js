@@ -49,14 +49,31 @@ $(function () {
         let tasks = JSON.parse(response);
         let template = "";
         tasks.forEach((task) => {
-          template += `<tr>
+          template += `<tr taskID=${task.id}>
             <td>${task.id}</td>
             <td>${task.name}</td>
             <td>${task.description}</td>
+            <td>
+              <button class='btn btn-danger task-delete'>
+              Delete
+              </button>
+            </td>
           </tr>`;
         });
         $("#tasks").html(template);
       },
     });
   }
+
+
+  //Borrar tarea Ajax
+  $(document).on("click", ".task-delete", function () {
+    if (confirm("Are you sure you want to delete it ?")) {
+      let element = $(this)[0].parentElement.parentElement;
+      let id = $(element).attr("taskID");
+      $.post("task-delete.php", { id }, function (response) {
+        fetchTasks();
+      });
+    }
+  });
 });
